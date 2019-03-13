@@ -2,7 +2,7 @@ class Cell
   attr_accessor :color
   def initialize(color = "       ")
     @color = color
-    @colors = ["yellow", "red", "orange", "blue", "green", "white"]
+    @colors = ["yellow", "red", "orange", "blue", "green", "white", "blank"]
   end
 
   def color=(color)
@@ -20,6 +20,8 @@ class Cell
         @color = " Green "
       when "white"
         @color = " White "
+      when "blank"
+        @color = "       "
       end
     else
       puts "Sorry that isn't a valid color."
