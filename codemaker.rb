@@ -15,6 +15,10 @@ class CodeMaker
     return code
   end
 
+  def generateNewCode!(size)
+    @code = generateNewCode(size)
+  end
+
   def generateCodeHash(code)
     codeHash = {}
     code.each do |color|
