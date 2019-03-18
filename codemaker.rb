@@ -32,7 +32,7 @@ class CodeMaker
     codeHash
   end
 
-  def resultColor(color, i)
+  def resultColor(color)
     if @code.include?(color)
       return "white"
     else
@@ -56,17 +56,16 @@ class CodeMaker
       end
       i += 1
     end
-    i = 0
     guess.each do |color|
       if countedHash[color.to_sym] == nil
         countedHash[color.to_sym] = 1
-        result << resultColor(color, i)
+        result << resultColor(color)
       elsif @codeHash[color.to_sym] == nil
         result << "blank"
       elsif countedHash[color.to_sym] < @codeHash[color.to_sym]
         unless countedHash[color.to_sym] == guessHash[color.to_sym]
           countedHash[color.to_sym] += 1
-          result << resultColor(color, i)
+          result << resultColor(color)
         end
       else
         unless countedHash[color.to_sym] == guessHash[color.to_sym]
@@ -74,7 +73,6 @@ class CodeMaker
           countedHash[color.to_sym] += 1
         end
       end
-      i += 1
     end
     return randomizeResults(result)
   end
