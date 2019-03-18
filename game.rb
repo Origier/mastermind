@@ -128,6 +128,10 @@ class Mastermind
     results.all? {|result| result == "red"}  
   end
 
+  def makeCode
+
+  end
+
   def breakCode
     @rounds -= 1
     @code_maker.generateNewCode!(4)

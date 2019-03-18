@@ -33,9 +33,7 @@ class CodeMaker
   end
 
   def resultColor(color, i)
-    if color == @code[i]
-      return "red"
-    elsif @code.include?(color)
+    if @code.include?(color)
       return "white"
     else
       return "blank"
@@ -45,6 +43,19 @@ class CodeMaker
   def analyzeGuess(guess)
     result = []
     countedHash = {}
+    guessHash = generateCodeHash(guess)
+    i = 0
+    guess.each do |color|
+      if color == @code[i]
+        result << "red"
+        if countedHash[color.to_sym] == nil
+          countedHash[color.to_sym] = 1
+        else
+          countedHash[color.to_sym] += 1
+        end
+      end
+      i += 1
+    end
     i = 0
     guess.each do |color|
       if countedHash[color.to_sym] == nil
@@ -53,10 +64,15 @@ class CodeMaker
       elsif @codeHash[color.to_sym] == nil
         result << "blank"
       elsif countedHash[color.to_sym] < @codeHash[color.to_sym]
-        countedHash[color.to_sym] += 1
-        result << resultColor(color, i)
+        unless countedHash[color.to_sym] == guessHash[color.to_sym]
+          countedHash[color.to_sym] += 1
+          result << resultColor(color, i)
+        end
       else
-        result << "blank"
+        unless countedHash[color.to_sym] == guessHash[color.to_sym]
+          result << "blank"
+          countedHash[color.to_sym] += 1
+        end
       end
       i += 1
     end
@@ -71,6 +87,7 @@ class CodeMaker
       randResults << results[number]
       results.delete_at(number)
     end
+    puts randResults
     return randResults
   end
 end
