@@ -1,5 +1,5 @@
 class Player
-  attr_accessor :name, :score
+  attr_accessor :name, :score, :role
   def initialize(name)
     @name = name
     @score = 0

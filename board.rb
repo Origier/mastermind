@@ -1,7 +1,7 @@
 require_relative "row"
 
 class Board
-  attr_accessor :size, :guesses, :results
+  attr_accessor :size, :guesses, :results, :current_guess
   def initialize(size)
     @size = size
     @guesses = []
@@ -49,5 +49,14 @@ class Board
     @results[@current_result].cells[2].color = results[2].downcase
     @results[@current_result].cells[3].color = results[3].downcase
     @current_result += 1
+  end
+
+  def reset
+    @guesses = []
+    @size.times {@guesses << Row.new(4)}
+    @results = []
+    @size.times {@results << Row.new(4)}
+    @current_guess = 0
+    @current_result = 0
   end
 end

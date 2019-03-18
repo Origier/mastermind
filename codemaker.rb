@@ -17,6 +17,7 @@ class CodeMaker
 
   def generateNewCode!(size)
     @code = generateNewCode(size)
+    @codeHash = generateCodeHash(@code)
   end
 
   def generateCodeHash(code)
