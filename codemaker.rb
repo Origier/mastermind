@@ -85,7 +85,6 @@ class CodeMaker
       randResults << results[number]
       results.delete_at(number)
     end
-    puts randResults
     return randResults
   end
 end
