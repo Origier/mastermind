@@ -41,22 +41,22 @@ class CodeBreaker
       @guesses << @current_guess
       return @current_guess
     else
-      guess = []
+      guess_var = []
       i = 0
       until i == 4 do
-        guess << getColor
-        if @color_probability[guess[i].to_sym][:location][i] == -1
-          guess.delete_at(i)
+        guess_var << getColor
+        if @color_probability[guess_var[i].to_sym][:location][i] == -1
+          guess_var.delete_at(i)
           next
         else
           i += 1
           next
         end
       end
-      if @guesses.include?(guess)
+      if @guesses.include?(guess_var)
         guess
       else
-        @current_guess = guess
+        @current_guess = guess_var
         @guesses << @current_guess
         return @current_guess
       end
@@ -103,10 +103,12 @@ class CodeBreaker
       end
     end                                                                      #@color_probability[:orange][:location] = [25,25,25,25] therefore numberAvailable = 4
     location_probablity = ((reds / numberAvailable.to_f) * 100).round(2)     #location_probablity = ((1 / 4.0) * 100) = 25.00
+    location_probablity = location_probablity > 99.9 ? 99.9 : location_probablity
+    puts "Color #{color} has a probability of #{location_probablity} with #{reds} reds and #{whites} whites with only #{numberAvailable} available slots."
     i = 0
     @current_guess.each do |guess|
       if guess == color
-        @color_probability[color.to_sym][:location][i] = location_probablity unless location_probablity < @color_probability[color.to_sym][:location][i] or @color_probability[color.to_sym][:location][i] == -1
+        @color_probability[color.to_sym][:location][i] = location_probablity unless @color_probability[color.to_sym][:location][i] == -1
       end
       i += 1
     end
@@ -132,6 +134,7 @@ class CodeBreaker
     end
     numberAvailable -= number_of_highest
     remaining_percentage = ((percentage - (highest_percent * number_of_highest)) / numberAvailable.to_f).round(2)
+    puts "Color has a remaining percent of #{remaining_percentage}"
     i = 0
     @color_probability[color.to_sym][:location].each do |location|
       if location == highest_percent
